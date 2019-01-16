@@ -1,0 +1,127 @@
+package com.chinasoft.dao.impl;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.ws.rs.core.Response.Status.Family;
+
+import com.chinasoft.dao.InvestDao;
+import com.chinasoft.entity.Invest;
+import com.chinasoft.util.DBUtil;
+
+public class InvestDaoImpl implements InvestDao {
+   Connection conn = null;
+   PreparedStatement pstmt = null;
+   ResultSet rs = null;
+   //查询所有的投资人信息
+	@Override
+	public List<Invest> getAll(int page,int pageSize) {
+		
+		conn = DBUtil.getConn();
+		
+		List<Invest> list = new ArrayList<Invest>();
+		try {
+			
+			pstmt= conn.prepareStatement("select * from Invest limit ?,?");
+			pstmt.setInt(1, (page-1)*pageSize);
+			pstmt.setInt(2, pageSize);
+			rs = pstmt.executeQuery();
+			while(rs.next())
+			{
+				Invest invest = new Invest();
+				invest.setTid(rs.getLong(1));
+				invest.setTaccount(rs.getString(2));
+				invest.setTitem(rs.getString(3));
+				invest.setTmoney(rs.getString(4));
+				invest.setTtotla(rs.getString(5));
+				invest.setTstart(rs.getString(6));
+				invest.setTend(rs.getString(7));
+				invest.setTrate(rs.getString(8));
+				
+				list.add(invest);
+				
+			}
+			return list;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally{
+			DBUtil.close(conn, pstmt, rs);
+		}
+		
+		return null;
+	}
+  //查询单个的投资人信息表
+	@Override
+	public Invest get(long tid) {
+		
+		conn = DBUtil.getConn();
+		try {
+			pstmt= conn.prepareStatement("select * from Invest where tid=? ");
+			pstmt.setLong(1, tid);
+		    rs=pstmt.executeQuery();
+		    while(rs.next())
+		    {
+		    	Invest invest = new Invest();
+		    	invest.setTid(rs.getLong(1));
+				invest.setTaccount(rs.getString(2));
+				invest.setTitem(rs.getString(3));
+				invest.setTmoney(rs.getString(4));
+				invest.setTtotla(rs.getString(5));
+				invest.setTstart(rs.getString(6));
+				invest.setTend(rs.getString(7));
+				invest.setTrate(rs.getString(8));
+				
+				return invest;
+		    	
+		    }
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally{
+			DBUtil.close(conn, pstmt, rs);
+		}
+		
+		return null;
+	}
+	
+	
+	@Override
+	public boolean deleteInsertInfor(Long id) {
+		
+		String sql = "delete from Invest where t_id="+id;
+		conn = DBUtil.getConn();
+		try {
+			pstmt= conn.prepareStatement(sql);
+		    
+			int res = pstmt.executeUpdate();
+			
+			if (res>0) {
+				return true;
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally{
+			DBUtil.close(conn, pstmt, rs);
+		}
+		
+		return false;
+	}
+	
+	
+	/**
+	 * 测试
+	 */
+	public static void main(String[] args) {
+		
+		List<Invest> de = new InvestDaoImpl().getAll(1,2);
+		System.out.println(de);
+	}
+	
+}

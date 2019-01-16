@@ -1,0 +1,21 @@
+package com.chinasoft.dao;
+
+import java.util.List;
+
+import com.chinasoft.entity.Invest;
+
+public interface InvestDao {
+	
+	//查询所有投资信息
+	public List<Invest> getAll(int page,int pageSize);
+	//查询单个投资信息
+	public Invest get(long id);
+	
+	/**
+	 * 删除投资信息
+	 * @param str
+	 * @return
+	 */
+	public boolean deleteInsertInfor(Long id);
+
+}

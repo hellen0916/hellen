@@ -1,0 +1,102 @@
+<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
+<%
+String path = request.getContextPath();
+String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+%>
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+  <script type="text/javascript" src="/ptwoploan/js/jquery-1.11.0.js"></script>
+  <script type="text/javascript">
+  
+  	//查询所有的信息
+     function queryAll(url) {
+    	 //AJAX查询所有的信息
+    	 $.ajax({
+    		 type:"post",
+    		 url:url,
+    		 datatype:"json",
+    		 asyns:false,
+    		 success:function(data){
+    			 var dataJS = JSON.parse(data);
+    			 var html="";
+    			 for (var i = 0; i < dataJS.length; i++) {
+    				 html+="<tr id="+i+">";
+    				 $.each(dataJS[i],function(k,infor){
+    					 html+="<td>"+infor+"</td>";
+    					 if (k=="tid") {
+    					html+="<td>&nbsp; &nbsp;<a href='javascript:void(0)' onclick= deleteInfor('/ptwoploan/DeleteInvestServlet?id=" +infor+"')>删除</a>&nbsp; &nbsp;|&nbsp; &nbsp;<a href='javascript:void(0)'>编辑</a>&nbsp; &nbsp;</td>";
+						}
+    				 });
+    				 html+="</tr>";
+				}
+    			 $("#tr1").after(function(){
+    				 return html;
+    			 });
+    		 }
+    	 });
+	}
+  function deleteInfor(url) {
+	 
+	 
+	  $.ajax({
+		 type:"post",
+ 		 url:url,
+ 		 asyns:false,
+ 		 success:function(data){
+ 		 
+ 			 alert(data);
+ 		 }
+		  
+	  });
+	
+	  queryAll("/ptwoploan/QueryAllInvestServlet"); 
+}
+  
+  </script>
+   
+       
+  </head>
+  
+  <body onload="queryAll('/ptwoploan/QueryAllInvestServlet')">
+        <div align="center">
+             <div  id="div2" name="div2">
+               <h1>投&nbsp;&nbsp;资&nbsp;&nbsp;信&nbsp;&nbsp;息</h1><br><br><br>
+               
+             <table border="1px" cellpadding="0px" cellspacing="0px" id="table1">
+             <tr id="tr1">
+               
+               <th>  投资人信息&nbsp;&nbsp; </th>
+               <th>  项目信息 &nbsp;&nbsp;</th>
+               <th>  投资金额 &nbsp;&nbsp;</th>
+               <th>  预计总收入 &nbsp;&nbsp;</th>
+               <th>  项目起始时间&nbsp;&nbsp; </th>
+               <th>  项目结束时间&nbsp;&nbsp; </th>
+               <th>  项目利率&nbsp;&nbsp; </th>
+               <th>  合同编号&nbsp; &nbsp;</th>
+               <th>   &nbsp;&nbsp;操&nbsp;&nbsp;作&nbsp;&nbsp;</th>
+             </tr>
+             
+             <tr align="center">
+             
+	             <td colspan="9">
+	             	<a href="/ptwoploan/admin/managerinvest.jsp?page=1">首页</a>
+	             	<a href="/ptwoploan/admin/managerinvest.jsp?page=1">上一页</a>
+	             	<a href="/ptwoploan/admin/managerinvest.jsp?page=1">下一页</a>
+	             	<a href="/ptwoploan/admin/managerinvest.jsp?page=1">末页</a>
+	             	当前页：1/8
+	             </td>
+	             
+             </tr>
+             
+             </table>
+             </div>
+        </div>
+        
+        <a  href="/ptwoploan/admin/edit.jsp">hahh </a>
+        
+  </body>
+</html>

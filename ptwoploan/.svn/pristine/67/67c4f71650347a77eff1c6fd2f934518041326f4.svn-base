@@ -1,0 +1,33 @@
+package com.chinasoft.service.impl;
+
+import java.util.List;
+
+import com.chinasoft.dao.InvestDao;
+import com.chinasoft.dao.impl.InvestDaoImpl;
+import com.chinasoft.entity.Invest;
+import com.chinasoft.service.InvestService;
+
+public class InvestServiceImpl implements InvestService {
+    
+	private InvestDao dao = new InvestDaoImpl();
+      
+	@Override
+	public List<Invest> getAll(int page,int pageSize) {
+		
+		return dao.getAll( page,pageSize);
+		
+	}
+	
+	
+	/**
+	 * 删除投资信息
+	 * @param str
+	 * @returns
+	 */
+	@Override
+	public boolean deleteInsertInfor(Long id) {
+		
+		return dao.deleteInsertInfor(id);
+	}
+
+}

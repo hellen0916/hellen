@@ -1,0 +1,22 @@
+package com.chinasoft.service;
+
+import java.util.List;
+
+import com.chinasoft.entity.Invest;
+
+public interface InvestService {
+	
+	/**
+	 * 查询所有投资用户
+	 * @return
+	 */
+	public List<Invest> getAll(int page,int pageSize);
+	
+	/**
+	 * 删除投资信息
+	 * @param str
+	 * @return
+	 */
+	public boolean deleteInsertInfor(Long id);
+
+}

@@ -1,0 +1,95 @@
+<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%
+	String path = request.getContextPath();
+	String basePath = request.getScheme() + "://"
+			+ request.getServerName() + ":" + request.getServerPort()
+			+ path + "/";
+%>
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<base href="<%=basePath%>">
+
+<title>My JSP 'myaccount.jsp' starting page</title>
+
+<meta http-equiv="pragma" content="no-cache">
+<meta http-equiv="cache-control" content="no-cache">
+<meta http-equiv="expires" content="0">
+<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+<meta http-equiv="description" content="This is my page">
+<!--
+	<link rel="stylesheet" type="text/css" href="styles.css">
+	-->
+<style type="text/css">
+table {
+	width: 800px;
+	height: 80px;
+}
+.ptable{
+			margin: 0px auto;
+			width:600px;
+			border: 1px solid #9A9A9A;
+			background-color: #F0F8FF;
+		}
+		.ptable tr{
+			line-height: 30px;
+			
+		}
+		.ptable tr th{
+			background-color: #DCDCDC;
+		}
+		.ptable tr td{
+		height:30px;
+			text-align: center;
+		}
+</style>
+</head>
+	<body>
+		<jsp:include page="/client/head.jsp"></jsp:include>
+		<strong class="conT">修改资料</strong>
+		<form action="updatemyinfo" method="post">
+			<table class="ptable" cellspacing="0px" rules="rows">
+				<tr>
+					<td class="alignM" width="20%">账户</td>
+					<td class="alignL">${useraccount}</td>
+				</tr>
+				<tr>
+					<td class="alignM" width="20%">真实姓名</td>
+					<td class="alignL"><input type="text" name="name"></td>
+				</tr>
+				<tr>
+					<td class="alignM" width="20%">联系方式</td>
+					<td class="alignL"><input type="text" name="tel"></td>
+				</tr>
+				<tr>
+					<td class="alignM" width="20%">联系地址</td>
+					<td class="alignL"><input type="text" name="address"></td>
+				</tr>
+				<tr>
+					<td class="alignM" width="20%">身份证号</td>
+					<td class="alignL"><input type="text" name="idcart"></td>
+				</tr>
+				<tr>
+					<td class="alignM" width="20%">公司</td>
+					<td class="alignL"><input type="text" name="company"></td>
+				</tr>
+				<tr>
+					<td class="alignM" width="20%">工资</td>
+					<td class="alignL"><input type="text" name="salary"></td>
+				</tr>
+				<tr>
+					<td class="alignM" width="20%">详细信息</td>
+					<td class="alignL"><textarea rows="5" cols="50" name="otherinfor"></textarea></td>
+				</tr>
+				<tr>
+					<td class="alignM" colspan="2">
+						<input type="submit" value="修改资料"/>
+						<input type="button" value="返回" onclick="javascript:history.back();" />
+					</td>
+				</tr>
+			</table>
+			</form>
+		<jsp:include page="/client/foot.jsp"></jsp:include>
+	</body>
+</html>
